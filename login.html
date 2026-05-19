@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>后台登录 - 恒元的博客</title>
+  <link rel="icon" type="image/png" href="imges/hyblogb.png" media="(prefers-color-scheme: light)">
+  <link rel="icon" type="image/png" href="imges/hyblogh.png" media="(prefers-color-scheme: dark)">
+  <link rel="apple-touch-icon" href="imges/hyblogb.png">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <div class="loading-bar" id="loadingBar">
+    <div class="loading-progress" id="loadingProgress"></div>
+  </div>
+  
+  <div class="dev-warning" id="devWarning">
+    <i class="fas fa-exclamation-triangle"></i>
+    <span>请遵守国际署名协议 - CC BY-NC-ND 4.0 禁止二次开发</span>
+  </div>
+  
+  <div class="theme-toggle-wrapper">
+    <button class="theme-toggle" id="themeToggle" aria-label="切换主题">
+      <i class="fas fa-moon" id="themeIcon"></i>
+    </button>
+  </div>
+  
+  <div class="login-container">
+    <div class="login-box glass">
+      <div class="login-header">
+        <div class="login-logo">
+        <img src="imges/hyblogb.png" alt="恒元的博客" class="logo-img logo-light">
+        <img src="imges/hyblogh.png" alt="恒元的博客" class="logo-img logo-dark">
+        <span class="logo-text">恒元的博客</span>
+      </div>
+        <h2>后台登录</h2>
+      </div>
+      <form id="loginForm" method="get" action="#" onsubmit="return false;">
+        <div class="form-group">
+          <label for="username">用户名</label>
+          <input type="text" id="username" name="username" placeholder="请输入用户名" autocomplete="username" required>
+        </div>
+        <div class="form-group">
+          <label for="password">密码</label>
+          <input type="password" id="password" name="password" placeholder="请输入密码" autocomplete="current-password" required>
+        </div>
+        <button type="button" class="btn" id="loginBtn">登录</button>
+        <div id="errorMessage" class="error-message"></div>
+      </form>
+      <div class="login-footer">
+        <a href="index.html" class="home-link">
+          <i class="fas fa-home"></i> 返回首页
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

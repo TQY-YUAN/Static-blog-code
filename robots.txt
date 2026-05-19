@@ -1,0 +1,15 @@
+# robots.txt for 恒元的博客
+# https://hyluntan.dpdns.org
+
+User-agent: *
+Allow: /
+
+# 禁止访问的文件和目录
+Disallow: /admin.html
+Disallow: /login.html
+
+# 网站地图位置
+Sitemap: https://hyluntan.dpdns.org/sitemap.xml
+
+# 抓取延迟（可选，防止过度抓取
+Crawl-delay: 1

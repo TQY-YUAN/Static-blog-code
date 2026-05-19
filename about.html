@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>关于我 - 恒元的博客</title>
+  <link rel="icon" type="image/png" href="imges/hyblogb.png" media="(prefers-color-scheme: light)">
+  <link rel="icon" type="image/png" href="imges/hyblogh.png" media="(prefers-color-scheme: dark)">
+  <link rel="apple-touch-icon" href="imges/hyblogb.png">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <div class="loading-bar" id="loadingBar">
+    <div class="loading-progress" id="loadingProgress"></div>
+  </div>
+  
+  <div class="dev-warning" id="devWarning">
+    <i class="fas fa-exclamation-triangle"></i>
+    <span>请遵守国际署名协议 - CC BY-NC-ND 4.0 禁止二次开发</span>
+  </div>
+  
+  <nav class="glass">
+    <div class="container">
+      <a href="index.html" class="logo">
+        <img src="imges/hyblogb.png" alt="恒元的博客" class="logo-img logo-light">
+        <img src="imges/hyblogh.png" alt="恒元的博客" class="logo-img logo-dark">
+        <span class="logo-text">恒元的博客</span>
+      </a>
+      <div class="nav-content">
+        <div class="search-wrapper">
+          <input type="text" id="searchInput" class="search-input" placeholder="搜索文章...">
+          <button id="searchBtn" class="search-btn" aria-label="搜索">
+            <i class="fas fa-search"></i>
+          </button>
+        </div>
+        <ul>
+          <li><a href="index.html">首页</a></li>
+          <li><a href="about.html" class="active">关于我</a></li>
+          <li><a href="status.html">系统状态</a></li>
+          <li><a href="legal.html">法律声明</a></li>
+        </ul>
+        <button class="theme-toggle" id="themeToggle" aria-label="切换主题">
+          <i class="fas fa-moon" id="themeIcon"></i>
+        </button>
+        <button class="menu-toggle" id="menuToggle" aria-label="菜单">
+          <i class="fas fa-bars"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <section class="page-content">
+    <div class="about-container glass">
+      <div class="about-header">
+        <div class="avatar">
+          <i class="fas fa-user-circle"></i>
+        </div>
+        <h1>关于我</h1>
+        <p class="subtitle">记录生活，分享思考，传递价值</p>
+      </div>
+
+      <div class="about-content">
+        <section class="about-section">
+          <h2><i class="fas fa-user"></i> 个人简介</h2>
+          <div id="introductionContent"></div>
+        </section>
+
+        <section class="about-section">
+          <h2><i class="fas fa-code"></i> 技术领域</h2>
+          <ul id="skillsContent"></ul>
+        </section>
+
+        <section class="about-section">
+          <h2><i class="fas fa-heart"></i> 兴趣爱好</h2>
+          <ul id="hobbiesContent"></ul>
+        </section>
+
+        <section class="about-section">
+          <h2><i class="fas fa-envelope"></i> 联系方式</h2>
+          <ul id="contactContent"></ul>
+        </section>
+      </div>
+    </div>
+  </section>
+
+  <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
+  <div class="mobile-menu" id="mobileMenu">
+    <ul>
+      <li><a href="index.html"><i class="fas fa-home"></i> 首页</a></li>
+      <li><a href="about.html" class="active"><i class="fas fa-user"></i> 关于我</a></li>
+      <li><a href="status.html"><i class="fas fa-heartbeat"></i> 系统状态</a></li>
+      <li><a href="legal.html"><i class="fas fa-file-text"></i> 法律声明</a></li>
+      <li><a href="login.html"><i class="fas fa-cog"></i> 后台登录</a></li>
+    </ul>
+    <div class="search-wrapper">
+      <input type="text" id="mobileSearchInput" class="search-input" placeholder="搜索文章...">
+      <button id="mobileSearchBtn" class="search-btn" aria-label="搜索">
+        <i class="fas fa-search"></i>
+      </button>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-section">
+        <h4>关于博客</h4>
+        <p>这是一个个人博客，用于记录生活点滴、技术分享和思想感悟。</p>
+      </div>
+      
+      <div class="footer-section">
+        <h4>快速链接</h4>
+        <ul>
+          <li><a href="index.html">首页</a></li>
+          <li><a href="about.html">关于我</a></li>
+          <li><a href="status.html">系统状态</a></li>
+          <li><a href="legal.html">法律声明</a></li>
+          <li><a href="login.html">后台登录</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-section">
+        <h4>联系方式</h4>
+        <p>邮箱：hyblog@hyluntan.dpdns.org</p>
+      </div>
+    </div>
+    
+    <div class="footer-bottom">
+      <p class="copyright">© 2026 恒元的博客 版权所有</p>
+      <div class="footer-badges">
+        <p class="cc-license">
+          <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh" target="_blank" rel="noopener noreferrer">
+            <i class="fab fa-creative-commons"></i>
+            <i class="fab fa-creative-commons-by"></i>
+            <i class="fab fa-creative-commons-nc"></i>
+            <i class="fab fa-creative-commons-nd"></i>
+            CC BY-NC-ND 4.0
+          </a>
+        </p>
+        <p class="cloudflare-badge">
+          <a href="https://www.cloudflare.com/" target="_blank" rel="noopener noreferrer">
+            <i class="fab fa-cloudflare"></i>
+            <span>由 Cloudflare 保护</span>
+          </a>
+        </p>
+        <a href="reward.html" class="reward-btn">
+          <i class="fas fa-heart"></i>
+          打赏支持
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>后台管理 - 恒元的博客</title>
+  <link rel="icon" type="image/png" href="imges/hyblogb.png" media="(prefers-color-scheme: light)">
+  <link rel="icon" type="image/png" href="imges/hyblogh.png" media="(prefers-color-scheme: dark)">
+  <link rel="apple-touch-icon" href="imges/hyblogb.png">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <div class="loading-bar" id="loadingBar">
+    <div class="loading-progress" id="loadingProgress"></div>
+  </div>
+  
+  <div class="dev-warning" id="devWarning">
+    <i class="fas fa-exclamation-triangle"></i>
+    <span>请遵守国际署名协议 - CC BY-NC-ND 4.0 禁止二次开发</span>
+  </div>
+  
+  <div class="admin-layout">
+    <aside class="sidebar glass">
+      <a href="admin.html" class="logo">
+        <img src="imges/hyblogb.png" alt="博客管理" class="logo-img logo-light">
+        <img src="imges/hyblogh.png" alt="博客管理" class="logo-img logo-dark">
+        <span class="logo-text">博客管理</span>
+      </a>
+      <ul>
+        <li><a href="#articles" class="active" id="navArticles">文章管理</a></li>
+        <li><a href="#settings" id="navSettings">网站设置</a></li>
+        <li><a href="#themeSettings" id="navThemeSettings">主题设置</a></li>
+        <li><a href="#categorySettings" id="navCategorySettings">分类管理</a></li>
+        <li><a href="#aboutSettings" id="navAboutSettings">关于我设置</a></li>
+        <li><a href="#customTextSettings" id="navCustomTextSettings">自定义文本</a></li>
+      </ul>
+      <div class="sidebar-footer">
+        <a href="index.html" class="home-link">
+          <i class="fas fa-home"></i> 返回首页
+        </a>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header>
+        <h2 id="pageTitle">文章管理</h2>
+        <button class="logout-btn" id="logoutBtn">退出登录</button>
+      </header>
+
+      <section id="articles">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+          <div>
+            <button class="btn" id="addArticleBtn">
+              <i class="fas fa-plus"></i> 新建文章
+            </button>
+          </div>
+          <div class="search-box">
+            <input type="text" id="searchInput" placeholder="搜索文章..." style="padding: 8px 16px; border-radius: 20px; border: 1px solid var(--glass-border); background: var(--glass-bg); color: var(--text-primary);">
+          </div>
+        </div>
+
+        <div class="articles-list glass" style="border-radius: 16px; padding: 16px;">
+          <table class="articles-table">
+            <thead>
+              <tr>
+                <th>标题</th>
+                <th>分类</th>
+                <th>创建时间</th>
+                <th>操作</th>
+              </tr>
+            </thead>
+            <tbody id="articlesBody">
+            </tbody>
+          </table>
+          <div id="emptyArticles" class="empty-state" style="display: none;">
+            <h3>暂无文章</h3>
+            <p>点击上方按钮创建您的第一篇文章</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="editorSection" style="display: none;">
+        <div class="editor-section">
+          <div class="glass">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+              <button class="btn btn-secondary" id="backToListBtn">
+                <i class="fas fa-arrow-left"></i> 返回列表
+              </button>
+              <button class="btn" id="saveArticleBtn">
+                <i class="fas fa-save"></i> 保存文章
+              </button>
+            </div>
+
+            <div class="form-group">
+              <label for="articleTitle">文章标题</label>
+              <input type="text" id="articleTitle" placeholder="请输入文章标题">
+            </div>
+
+            <div class="form-group">
+              <label for="articleCategory">文章分类</label>
+              <select id="articleCategory">
+                <option value="未分类">未分类</option>
+                <option value="技术分享">技术分享</option>
+                <option value="生活随笔">生活随笔</option>
+                <option value="读书心得">读书心得</option>
+                <option value="其他">其他</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="articleContent">文章内容</label>
+              <div class="editor-toolbar">
+                <button data-action="bold" title="加粗"><i class="fas fa-bold"></i></button>
+                <button data-action="italic" title="斜体"><i class="fas fa-italic"></i></button>
+                <button data-action="underline" title="下划线"><i class="fas fa-underline"></i></button>
+                <button data-action="strike" title="删除线"><i class="fas fa-strikethrough"></i></button>
+                <button data-action="h1" title="标题1"><i class="fas fa-heading"></i></button>
+                <button data-action="h2" title="标题2"><i class="fas fa-heading" style="font-size: 14px;"></i></button>
+                <button data-action="list" title="列表"><i class="fas fa-list"></i></button>
+                <button data-action="quote" title="引用"><i class="fas fa-quote-right"></i></button>
+                <button data-action="link" title="链接"><i class="fas fa-link"></i></button>
+                <button data-action="image" title="插入图片" class="media-btn" id="insertImageBtn"><i class="fas fa-image"></i></button>
+                <button data-action="video" title="插入视频" class="media-btn" id="insertVideoBtn"><i class="fas fa-video"></i></button>
+              </div>
+              <div id="articleContent" class="editor-content" contenteditable="true" placeholder="开始编写文章内容..."></div>
+            </div>
+
+            <input type="hidden" id="articleId">
+          </div>
+        </div>
+      </section>
+
+      <section id="settings" style="display: none;">
+        <div class="glass" style="border-radius: 16px; padding: 24px;">
+          <h3>网站设置</h3>
+          <div class="form-group">
+            <label for="blogName">博客名称</label>
+            <input type="text" id="blogName" placeholder="请输入博客名称">
+          </div>
+          <div class="form-group">
+            <label for="blogDescription">博客描述</label>
+            <textarea id="blogDescription" placeholder="请输入博客描述"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="authorName">作者名称</label>
+            <input type="text" id="authorName" placeholder="请输入作者名称">
+          </div>
+          <div class="form-group">
+            <label for="authorEmail">作者邮箱</label>
+            <input type="email" id="authorEmail" placeholder="请输入作者邮箱">
+          </div>
+          <div class="form-group">
+            <label for="authorGitHub">GitHub链接</label>
+            <input type="url" id="authorGitHub" placeholder="请输入GitHub链接">
+          </div>
+          <button class="btn" id="saveSettingsBtn">保存设置</button>
+          <div id="settingsMessage"></div>
+        </div>
+      </section>
+
+      <section id="themeSettings" style="display: none;">
+        <div class="glass" style="border-radius: 16px; padding: 24px;">
+          <h3>主题设置</h3>
+          <div class="form-group">
+            <label for="accentColor">主题色</label>
+            <div class="color-picker-container">
+              <input type="color" id="accentColor" value="#c9b896">
+              <div class="color-presets">
+                <button data-color="#c9b896" class="color-preset active" style="background: #c9b896;"></button>
+                <button data-color="#6c5ce7" class="color-preset" style="background: #6c5ce7;"></button>
+                <button data-color="#00cec9" class="color-preset" style="background: #00cec9;"></button>
+                <button data-color="#fd79a8" class="color-preset" style="background: #fd79a8;"></button>
+                <button data-color="#0984e3" class="color-preset" style="background: #0984e3;"></button>
+                <button data-color="#00b894" class="color-preset" style="background: #00b894;"></button>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="fontFamily">字体选择</label>
+            <select id="fontFamily">
+              <option value="default">默认字体</option>
+              <option value="serif">衬线字体</option>
+              <option value="sans-serif">无衬线字体</option>
+              <option value="monospace">等宽字体</option>
+              <option value="cursive">手写字体</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="fontSize">字体大小</label>
+            <select id="fontSize">
+              <option value="small">小号</option>
+              <option value="medium" selected>中号</option>
+              <option value="large">大号</option>
+              <option value="xlarge">特大号</option>
+            </select>
+          </div>
+          <button class="btn" id="saveThemeBtn">保存主题设置</button>
+          <button class="btn btn-secondary" id="resetThemeBtn">恢复默认</button>
+          <div id="themeMessage"></div>
+        </div>
+      </section>
+
+      <section id="categorySettings" style="display: none;">
+        <div class="glass" style="border-radius: 16px; padding: 24px;">
+          <h3>分类管理</h3>
+          <div style="display: flex; gap: 12px; margin-bottom: 24px;">
+            <input type="text" id="newCategory" placeholder="输入新分类名称" style="flex: 1; padding: 12px; border-radius: 8px; border: 1px solid var(--glass-border); background: var(--glass-bg); color: var(--text-primary);">
+            <button class="btn" id="addCategoryBtn">添加分类</button>
+          </div>
+          <div id="categoriesList">
+          </div>
+          <div id="categoryMessage"></div>
+        </div>
+      </section>
+
+      <section id="aboutSettings" style="display: none;">
+        <div class="glass" style="border-radius: 16px; padding: 24px;">
+          <h3>关于我设置</h3>
+          <div class="form-group">
+            <label for="aboutIntroduction">个人简介</label>
+            <textarea id="aboutIntroduction" placeholder="请输入个人简介" rows="4"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="aboutSkills">技术领域（每行一项）</label>
+            <textarea id="aboutSkills" placeholder="前端开发：HTML、CSS、JavaScript&#10;后端开发：Node.js、Python" rows="6"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="aboutHobbies">兴趣爱好（每行一项）</label>
+            <textarea id="aboutHobbies" placeholder="阅读：喜欢读科技、历史、文学类书籍&#10;写作：记录生活，分享思考" rows="6"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="aboutContact">联系方式（每行一项）</label>
+            <textarea id="aboutContact" placeholder="邮箱：hyblog@hyluntan.dpdns.org&#10;GitHub：https://github.com/hengyuan" rows="4"></textarea></function><function name="Edit"><parameter name="file_path" string="true">d:\blog\admin.html
+          </div>
+          <button class="btn" id="saveAboutBtn">保存设置</button>
+          <div id="aboutMessage"></div>
+        </div>
+      </section>
+
+      <section id="customTextSettings" style="display: none;">
+        <div class="glass" style="border-radius: 16px; padding: 24px;">
+          <h3>自定义文本设置</h3>
+          <p style="color: var(--text-secondary); margin-bottom: 24px;">在此处自定义各页面的显示文本，包括提示信息、按钮文字等。</p>
+          
+          <div class="form-group">
+            <label for="devWarningText">开发者工具警告提示</label>
+            <input type="text" id="devWarningText" placeholder="请遵守国际署名协议 - CC BY-NC-ND 4.0 禁止二次开发">
+          </div>
+
+          <div class="form-group">
+            <label for="rewardTitle">打赏页面标题</label>
+            <input type="text" id="rewardTitle" placeholder="感谢您的支持！">
+          </div>
+
+          <div class="form-group">
+            <label for="rewardMessage">打赏页面消息</label>
+            <textarea id="rewardMessage" placeholder="非常感谢您对我的博客的喜爱和支持！您的每一份鼓励都是我继续创作的动力。" rows="3"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="rewardNoticeTitle">打赏提示标题</label>
+            <input type="text" id="rewardNoticeTitle" placeholder="打赏功能开发中">
+          </div>
+
+          <div class="form-group">
+            <label for="rewardNoticeText">打赏提示内容</label>
+            <textarea id="rewardNoticeText" placeholder="目前仅支持微信支付打赏功能正在紧张开发中，敬请期待！" rows="3"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="rewardLinkText">打赏按钮文字</label>
+            <input type="text" id="rewardLinkText" placeholder="前往打赏">
+          </div>
+
+          <div class="form-group">
+            <label for="rewardLinkUrl">打赏链接地址</label>
+            <input type="url" id="rewardLinkUrl" placeholder="https://example.com/donate">
+          </div>
+
+          <div class="form-group">
+            <label for="contactEmail">联系邮箱</label>
+            <input type="email" id="contactEmail" placeholder="hyblog@hyluntan.dpdns.org">
+          </div>
+
+          <div class="form-group">
+            <label for="footerAbout">页脚关于博客描述</label>
+            <textarea id="footerAbout" placeholder="这是一个个人博客，用于记录生活点滴、技术分享和思想感悟。" rows="2"></textarea>
+          </div>
+
+          <button class="btn" id="saveCustomTextBtn">保存自定义文本</button>
+          <div id="customTextMessage"></div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div class="modal-overlay" id="deleteModal">
+    <div class="modal-content glass">
+      <h3>确认删除</h3>
+      <p>确定要删除这篇文章吗？此操作无法撤销。</p>
+      <div class="btn-group">
+        <button class="btn btn-secondary" id="cancelDeleteBtn">取消</button>
+        <button class="btn btn-danger" id="confirmDeleteBtn">确认删除</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="mediaModal">
+    <div class="modal-content glass media-modal">
+      <h3 id="mediaModalTitle">插入媒体</h3>
+      <div class="media-tabs">
+        <button class="media-tab active" data-tab="url">URL 链接</button>
+        <button class="media-tab" data-tab="upload">上传文件</button>
+      </div>
+      <div class="media-tab-content" id="urlTab">
+        <div class="form-group">
+          <label for="mediaUrl">媒体链接</label>
+          <input type="url" id="mediaUrl" placeholder="请输入图片或视频链接">
+        </div>
+        <div class="form-group" id="altTextGroup">
+          <label for="mediaAlt">替代文字（可选）</label>
+          <input type="text" id="mediaAlt" placeholder="图片描述文字">
+        </div>
+      </div>
+      <div class="media-tab-content" id="uploadTab" style="display: none;">
+        <div class="upload-area" id="uploadArea">
+          <input type="file" id="mediaFile" accept="image/*,video/*" style="display: none;">
+          <i class="fas fa-cloud-upload-alt"></i>
+          <p>点击或拖拽文件到此处上传</p>
+          <span>支持 JPG、PNG、GIF、MP4 等格式</span>
+        </div>
+        <div id="uploadPreview" style="display: none;"></div>
+      </div>
+      <div class="btn-group">
+        <button class="btn btn-secondary" id="cancelMediaBtn">取消</button>
+        <button class="btn" id="confirmMediaBtn">插入</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
